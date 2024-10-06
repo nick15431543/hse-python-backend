@@ -1,6 +1,6 @@
 from pydantic import BaseModel, ConfigDict
 
-from store.models import Cart
+from lecture_2.hw.shop_api.store.models import Cart
 
 class CartResponse(BaseModel):
     id: int
