@@ -4,8 +4,8 @@ from lecture_2.hw.shop_api.store.models import Cart
 
 class CartResponse(BaseModel):
     id: int
-    items: list[dict]
-    price: float
+    items: list[dict] = []
+    price: float = 0.0
 
 
     def from_entity(self, entity: Cart):

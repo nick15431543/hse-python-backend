@@ -6,7 +6,7 @@ from pydantic import NonNegativeInt, PositiveInt, NonNegativeFloat
 
 from lecture_2.hw.shop_api.store.models import Item
 import lecture_2.hw.shop_api.store.queries as queries
-from lecture_2.hw.shop_api.item.contracts import ItemRequest
+from lecture_2.hw.shop_api.item.contracts import ItemRequestPatch, ItemRequestPost
 
 router_item = APIRouter(prefix="/item")
 
@@ -47,7 +47,7 @@ async def get_item_list(
     "/",
     status_code=HTTPStatus.CREATED,
 )
-async def post_item(info: ItemRequest, response: Response):
+async def post_item(info: ItemRequestPost, response: Response):
     item = queries.add_item(info=info)
     response.headers["location"] = f"/item/{item.id}"
     return item
@@ -64,7 +64,7 @@ async def post_item(info: ItemRequest, response: Response):
         },
     }
 )
-async def put_item(id: int, info: ItemRequest):
+async def put_item(id: int, info: ItemRequestPost):
     item = queries.put_item(id, info)
     if item is None:
         raise HTTPException(
@@ -98,7 +98,7 @@ async def delete_item(id: int, response: Response):
         },
     },
 )
-async def patch_item(id: int, info: ItemRequest):
+async def patch_item(id: int, info: ItemRequestPatch):
     item = queries.patch_item(id, info)
     if item is None:
         raise HTTPException(

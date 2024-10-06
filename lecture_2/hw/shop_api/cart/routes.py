@@ -51,3 +51,11 @@ async def post_cart(response: Response):
     response.headers["location"] = f"/cart/{id}"
     return {"id": id}
 
+
+@router_cart.post(
+    "/{cart_id}/add/{item_id}",
+    status_code=HTTPStatus.CREATED,
+)
+async def add_items_to_cart(cart_id: int, item_id: int):
+    item = queries.add_items_to_cart(cart_id, item_id)
+    return item
